@@ -1,1 +1,6 @@
 h1 = @list.title
+
+- @list.items.each do |item|
+  span = item.title
+
+= render "items/form", :list => @list
