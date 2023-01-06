@@ -3,5 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "lists#new"
-  resources :lists
+  resources :lists do
+    resources :items
+  end
 end
