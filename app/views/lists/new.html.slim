@@ -1,1 +1,5 @@
-= render "lists/form", :list => List.new
+.min-h-screen.flex.items-center.justify-center.-mt-8
+  .w-full.flex.gap-4.justify-center
+    h1.text-center.font-bold.text-4xl Hotlist
+    div class="w-[500px]"
+      = render "lists/form", :list => List.new
