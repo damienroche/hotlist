@@ -8,13 +8,17 @@ class ListsController < ApplicationController
   def show
   end
 
+  def create
+    @list = List.create(list_params)
+    redirect_to list_path(@list)
+  end
+  
   def set_list
     @list = List.find(params[:id])
   end
 
-  def create
-    @list = List.create(list_params)
-    redirect_to list_path(@list)
+  def index
+    redirect_to root_path
   end
 
   private
