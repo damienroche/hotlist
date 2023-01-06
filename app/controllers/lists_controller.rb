@@ -1,4 +1,6 @@
 class ListsController < ApplicationController
+  before_action :get_current_participant_id
+  before_action :is_participant_logged?
   before_action :set_list, :only => [:show]
 
   def new
@@ -19,6 +21,20 @@ class ListsController < ApplicationController
 
   def index
     redirect_to root_path
+  end
+
+  def is_participant_logged?
+    return session[params[:id]].present?
+  end
+
+  def get_current_participant_id
+    @current_participant_id = session[params[:id]]&.to_i
+  end
+
+  def update_current_participant
+    session[params[:list_id]] = params[:participant_id]
+    @current_participant_id = params[:participant_id].to_i
+    redirect_to list_path(List.find(params[:list_id]))
   end
 
   private

@@ -1,17 +1,36 @@
 .grid.gap-8
   h1.font-semibold.text-4xl = @list.title
+  .bg-gray-100.p-4.flex.gap-4.items-center
+    h2.font-bold -> Who are you ?
+    - if @list.participants.empty?
+      .text-sm.italic.text-center Nobody
+    = content_tag :ul, class: 'inline-flex gap-2 flex-1' do
+      - @list.participants.each do |participant|
+        li.border-4.px-6.py-2.rounded-full.text-white class=(@current_participant_id == participant.id ? "border-black" : "border-transparent") style=("background-color: ##{participant.color}")
+          = button_to list_update_current_participant_path(list_id: @list.id, participant_id: participant.id)
+            = participant.name
+    = render "participants/form", :list => @list, :participant => Participant.new
 
-  .bg-gray-200.p-4
+  .bg-gray-100.p-4.grid.gap-4
     = render "items/form", :list => @list, :item => Item.new
-
-  - if @list.items.empty?
-    .text-xl.text-center.w-full -
-
-  = content_tag :ul, class: 'flex flex-col-reverse gap-4' do
-    - @list.items.each do |item|
-      li.flex.items-center.justify-between.border-2.border-black.py-2.pl-4.pr-2
-        .flex-1.font-bold = item.title
-        = button_to list_item_path(id: item.id, list_id: @list.id), method: :delete do
-          svg width="32" height="32" viewBox="0 0 24 24"
-            path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+    - if @list.items.empty?
+      .text-xl.text-center.w-full -
+    = content_tag :ul, class: 'flex flex-col-reverse gap-4' do
+      - @list.items.each do |item|
+        li.flex.items-strech.justify-between.border-2.border-black
+          .flex-1.flex.items-center.gap-2.p-4
+            .font-bold = item.title
+            - if @current_participant_id
+              = button_to list_item_add_participant_path(item_id: item.id, list_id: @list.id ), method: :post, params: { participant_id: @current_participant_id } do
+                .text-sm I take it !
+          .flex.items-strech
+            - if item.participants.any?
+              .border-l-2.border-black.flex.items-center.p-4.gap-2
+                - item.participants.each do |participant|
+                  .h-12.w-12.rounded-full.inline-flex.justify-center.items-center style=("background-color: ##{participant.color}")
+                    .font-bold.text-white = participant.name.upcase!.chr
+            .flex.items-center.border-black.border-l-2.px-4
+              = button_to list_item_path(id: item.id, list_id: @list.id), method: :delete do
+                svg width="32" height="32" viewBox="0 0 24 24"
+                  path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
 

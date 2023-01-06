@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_06_112121) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_06_144233) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+
+  create_table "item_participants", force: :cascade do |t|
+    t.bigint "participant_id", null: false
+    t.bigint "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_item_participants_on_item_id"
+    t.index ["participant_id"], name: "index_item_participants_on_participant_id"
+  end
 
   create_table "items", force: :cascade do |t|
     t.string "title", null: false
@@ -38,6 +47,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_06_112121) do
     t.index ["list_id"], name: "index_participants_on_list_id"
   end
 
+  add_foreign_key "item_participants", "items"
+  add_foreign_key "item_participants", "participants"
   add_foreign_key "items", "lists"
   add_foreign_key "participants", "lists"
 end
