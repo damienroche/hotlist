@@ -10,6 +10,13 @@ class ItemsController < ApplicationController
     redirect_to list_path(@list)
   end
 
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+
+    redirect_to @list
+  end
+
   private
     def set_list
       @list = List.find(params[:list_id])
