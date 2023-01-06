@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
   before_action :set_list
-  # before_action :set_item, only: [:add_participant, :destroy]
 
   def create
     @list.items.create!(params.required(:item).permit(:title))
@@ -15,11 +14,6 @@ class ItemsController < ApplicationController
     item = Item.find(params[:id])
     item.destroy
 
-    redirect_to @list
-  end
-
-  def add_participant
-    ItemParticipant.create(item_id: params[:item_id], participant_id: params[:participant_id])
     redirect_to @list
   end
 

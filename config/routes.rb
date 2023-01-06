@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   resources :lists do
     post :update_current_participant
     resources :items do
-      post :add_participant
-      delete :delete_participant
+      resources :participants, only: %i[create destroy], controller: "bringers"
     end
     resources :participants
   end
