@@ -1,0 +1,4 @@
+= content_tag :ul, class: "inline-flex gap-2 flex-1" do
+  - list.participants.each do |participant|
+    = button_to list_update_current_participant_path(list_id: list.id, participant_id: participant.id)
+      = render Participants::TagComponent.new(name: participant.name, color: participant.color, participant_id: participant.id, current_participant_id: @current_participant_id)
