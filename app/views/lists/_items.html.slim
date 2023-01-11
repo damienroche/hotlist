@@ -6,16 +6,16 @@
         - if @current_participant_id
           - if item.participants.pluck(:id).include?(@current_participant_id)
             = button_to list_item_participant_path(item_id: item.id, list_id: list.id, id: @current_participant_id ), method: :delete do
-              .text-sm I no longer take this !
+              .text-sm = t('item.bringer.remove')
           - else
             = button_to list_item_participants_path(item_id: item.id, list_id: list.id, id: @current_participant_id ), method: :post do
-              .text-sm I take this !
+              .text-sm = t('item.bringer.add')
       .flex.items-strech
         - if item.participants.any?
           .border-l-2.border-black.flex.items-center.p-4.gap-2
             - item.participants.each do |participant|
               = render Participants::AvatarComponent.new(name: participant.name, color: participant.color)
         .flex.items-center.border-black.border-l-2.px-4
-          = button_to list_item_path(id: item.id, list_id: list.id), method: :delete do
+          = link_to list_item_path(id: item.id, list_id: list.id), data: { turbo_method: :delete, turbo_confirm: t('item.delete.confirm') } do
             svg width="32" height="32" viewBox="0 0 24 24"
               path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"

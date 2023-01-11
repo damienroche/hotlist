@@ -1,4 +1,4 @@
 = form_with model: [ list, item ], class: "grid gap-2" do |f| 
   = f.hidden_field :list_id, value: list.id
-  = f.text_field :title, class: "h-12 border-2 border-black", placeholder: "Add item and press Enter"
+  = f.text_field :title, class: "h-12 border-2 border-black", placeholder: t("item.form.add.placeholder")
   = f.submit class: "hidden"

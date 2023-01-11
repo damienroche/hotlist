@@ -1,4 +1,4 @@
-= form_with model: [ list, participant ], class: "grid gap-2" do |f| 
+= form_with model: [ list, participant ], class: "flex" do |f| 
   = f.hidden_field :list_id, value: list.id
-  = f.text_field :name, class: "h-12 border-2 border-black min-w-[280px]", placeholder: "Add participant and press Enter"
-  = f.submit class: "hidden"
+  = f.text_field :name, class: "h-12 border-2 border-black min-w-[280px]", placeholder: t("participant.form.add.placeholder")
+  = f.submit t("participant.form.add.submit"), class: "bg-black text-white px-4"

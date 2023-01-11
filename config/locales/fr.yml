@@ -1,0 +1,23 @@
+fr:
+  lists:
+    show:
+      current_participant:
+        title: "Qui es-tu ?"
+        instruction: "Clique sur ton nom"
+      participants:
+        empty: "Nobody"
+  item:
+    bringer:
+      add: "Je m'en occupe"
+      remove: "Je m'en occupe plus"
+    delete:
+      confirm: "Es-tu certain de vouloir supprimer cette ligne ?"
+    form:
+      add:
+        placeholder: "Ajoute quelque chose et appuye sur entrée"
+  participant:
+    form:
+      add:
+        placeholder: "Nouveau participant"
+        submit: "Ajouter"
+
